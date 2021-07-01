@@ -1,4 +1,16 @@
-export { default as Topic } from "./Topic";
-export { default as Subtopic } from "./Subtopic";
-export { default as Resource } from "./Resource";
-export { default as Question } from "./Question";
+import { CollectionSchema } from "../types";
+import Topic from "./Topic";
+import Subtopic from "./Subtopic";
+import Resource from "./Resource";
+import Question from "./Question";
+
+const schemas: {
+	[schema: string]: CollectionSchema;
+} = {
+	Topic,
+	Subtopic,
+	Resource,
+	Question,
+};
+
+export default schemas;

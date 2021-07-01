@@ -20,3 +20,7 @@ export interface CollectionProps {
 	schema: Field[];
 	name: string;
 }
+
+export interface CollectionTitleProps {
+	name: string;
+}

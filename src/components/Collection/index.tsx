@@ -1,32 +1,36 @@
 import { Table, Typography, Col } from "antd";
-import { CollectionProps } from "./types";
+import { CollectionProps, CollectionTitleProps } from "./types";
 
 const columns = [
 	{
-		title: "Field name",
+		title: "Field",
 		dataIndex: "name",
 		key: "name",
 	},
 	{
-		title: "Field type",
+		title: "Type",
 		dataIndex: "type",
 		key: "type",
 		width: "12%",
 	},
 ];
 
-const tableStyle = {};
+const Title = ({ name, ...restProps }: CollectionTitleProps) => (
+	<Typography.Title level={5} className="tableTitle" {...restProps}>
+		{name}
+	</Typography.Title>
+);
 
 const Collection = ({ schema, name, ...restProps }: CollectionProps) => {
 	return (
 		<Col span={10}>
 			<Table
-				title={() => <Typography.Title level={4}>{name}</Typography.Title>}
+				title={() => <Title name={name} />}
 				columns={columns}
 				dataSource={schema}
 				bordered
-				style={{ ...tableStyle }}
 				size="small"
+				pagination={false}
 				{...restProps}
 			/>
 		</Col>
