@@ -9,7 +9,10 @@ const TheView = () => {
 			<Row gutter={16} justify="center">
 				{collections.map((collection) => (
 					<Col span={10} key={collection}>
-						<Collection name={collection} schema={collectionSchemas[collection]} />
+						<Collection
+							name={collection}
+							schema={collectionSchemas[collection]}
+						/>
 					</Col>
 				))}
 			</Row>

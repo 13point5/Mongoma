@@ -1,12 +1,23 @@
 .root {
 	display: flex;
 	height: 100vh;
+
+	background: #001429;
+	color: white;
 }
 
-.fileListSider {
-	width: 250px !important;
-	min-width: 250px !important;
-	max-width: 250px !important;
-
+.schemaListSider {
+	width: 250px;
 	overflow: auto;
+}
+
+.menuItem {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.menuItem > span {
+	color: white;
 }

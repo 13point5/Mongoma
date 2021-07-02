@@ -10,13 +10,15 @@ import localforage from "localforage";
 import { Button, Space, Input, Alert } from "antd";
 import { FileAddOutlined } from "@ant-design/icons";
 
-type Props = {
-	schemas: string[];
-	setSchemas: Dispatch<SetStateAction<string[]>>;
-};
+import { SchemaNames, SchemaName } from "../types";
+
+interface Props {
+	schemas: SchemaNames;
+	setSchemas: Dispatch<SetStateAction<SchemaNames>>;
+}
 
 const AddSchema = ({ schemas, setSchemas }: Props) => {
-	const [newSchema, setNewSchema] = useState<string | null>(null);
+	const [newSchema, setNewSchema] = useState<SchemaName | null>(null);
 	const [alert, setAlert] = useState<null | {
 		type: "warning" | "error";
 		message: string;
@@ -55,7 +57,7 @@ const AddSchema = ({ schemas, setSchemas }: Props) => {
 				alertDuplicate();
 			} else {
 				localforage
-					.setItem<string[]>("schemas", R.append(newSchema, schemas))
+					.setItem("schemas", R.append(newSchema, schemas))
 					.then((value) => {
 						setSchemas(value || []);
 					});
