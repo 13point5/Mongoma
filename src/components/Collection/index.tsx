@@ -1,4 +1,4 @@
-import { Table, Typography, Col } from "antd";
+import { Table, Typography } from "antd";
 import { CollectionProps, CollectionTitleProps } from "./types";
 
 const columns = [
@@ -23,17 +23,15 @@ const Title = ({ name, ...restProps }: CollectionTitleProps) => (
 
 const Collection = ({ schema, name, ...restProps }: CollectionProps) => {
 	return (
-		<Col span={10}>
-			<Table
-				title={() => <Title name={name} />}
-				columns={columns}
-				dataSource={schema}
-				bordered
-				size="small"
-				pagination={false}
-				{...restProps}
-			/>
-		</Col>
+		<Table
+			title={() => <Title name={name} />}
+			columns={columns}
+			dataSource={schema}
+			bordered
+			size="small"
+			pagination={false}
+			{...restProps}
+		/>
 	);
 };
 
