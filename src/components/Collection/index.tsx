@@ -1,5 +1,7 @@
 import { Table, Typography } from "antd";
-import { CollectionProps, CollectionTitleProps } from "./types";
+import { CollectionProps, CollectionTitleProps } from "types";
+
+import classes from "./styles.module.css";
 
 const columns = [
 	{
@@ -16,23 +18,21 @@ const columns = [
 ];
 
 const Title = ({ name, ...restProps }: CollectionTitleProps) => (
-	<Typography.Title level={5} className="tableTitle" {...restProps}>
+	<Typography.Title level={5} className={classes.tableTitle} {...restProps}>
 		{name}
 	</Typography.Title>
 );
 
-const Collection = ({ schema, name, ...restProps }: CollectionProps) => {
-	return (
-		<Table
-			title={() => <Title name={name} />}
-			columns={columns}
-			dataSource={schema}
-			bordered
-			size="small"
-			pagination={false}
-			{...restProps}
-		/>
-	);
-};
+const Collection = ({ schema, name, ...restProps }: CollectionProps) => (
+	<Table
+		title={() => <Title name={name} />}
+		columns={columns}
+		dataSource={schema}
+		bordered
+		size="small"
+		pagination={false}
+		{...restProps}
+	/>
+);
 
 export default Collection;

@@ -1,6 +1,7 @@
-import * as R from "ramda";
 import { useState, useEffect } from "react";
-import localforage from "localforage";
+
+import { SchemaNames, SchemaName } from "types";
+import * as api from "api";
 
 import { Menu, Typography, Space, Divider, Button } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
@@ -8,7 +9,6 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import Monaco from "components/Monaco";
 import AddSchema from "./AddSchema";
 
-import { SchemaNames, SchemaName } from "./types";
 import classes from "./styles.module.css";
 
 const Workbench = () => {
@@ -26,7 +26,7 @@ const Workbench = () => {
 	};
 
 	useEffect(() => {
-		localforage.getItem<SchemaNames | null>("schemas").then(updateSchemas);
+		api.getSchemaNames().then(updateSchemas);
 	}, []);
 
 	const handleSelect = ({ key }: { key: string }) => {
@@ -34,9 +34,7 @@ const Workbench = () => {
 	};
 
 	const removeSchema = (key: SchemaName) => {
-		localforage
-			.setItem("schemas", R.reject(R.equals(key), schemas))
-			.then(updateSchemas);
+		api.removeSchema(key, schemas).then(updateSchemas);
 	};
 
 	return (

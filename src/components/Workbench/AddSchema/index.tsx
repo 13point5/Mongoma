@@ -6,11 +6,12 @@ import {
 	SetStateAction,
 	ChangeEvent,
 } from "react";
-import localforage from "localforage";
+
+import * as api from "api";
+import { SchemaNames, SchemaName, AlertState } from "types";
+
 import { Button, Space, Input, Alert } from "antd";
 import { FileAddOutlined } from "@ant-design/icons";
-
-import { SchemaNames, SchemaName } from "../types";
 
 interface Props {
 	schemas: SchemaNames;
@@ -19,10 +20,7 @@ interface Props {
 
 const AddSchema = ({ schemas, setSchemas }: Props) => {
 	const [newSchema, setNewSchema] = useState<SchemaName | null>(null);
-	const [alert, setAlert] = useState<null | {
-		type: "warning" | "error";
-		message: string;
-	}>(null);
+	const [alert, setAlert] = useState<AlertState | null>(null);
 
 	const startAddingNewSchema = () => {
 		if (!R.isNil(newSchema)) return;
@@ -56,11 +54,9 @@ const AddSchema = ({ schemas, setSchemas }: Props) => {
 			} else if (R.includes(newSchema, schemas)) {
 				alertDuplicate();
 			} else {
-				localforage
-					.setItem("schemas", R.append(newSchema, schemas))
-					.then((value) => {
-						setSchemas(value || []);
-					});
+				api.addSchema(newSchema, schemas).then((value) => {
+					setSchemas(value || []);
+				});
 			}
 		} else if (e.key === "Escape" || e.key === "Esc") {
 			stopAddingNewSchema();

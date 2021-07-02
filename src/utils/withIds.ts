@@ -1,4 +1,4 @@
-const addIds = (field, parentId) => {
+const addIds = (field: any, parentId: any) => {
 	const fieldId = `${parentId}%${field.name}`;
 
 	const fieldWithId = {
@@ -13,11 +13,11 @@ const addIds = (field, parentId) => {
 
 	return {
 		...fieldWithId,
-		children: field.children.map((child) => addIds(child, fieldId)),
+		children: field.children.map((child: any) => addIds(child, fieldId)),
 	};
 };
 
-const withIds = (schema, schemaName) =>
-	schema.map((field) => addIds(field, schemaName));
+const withIds = (schema: any, schemaName: string) =>
+	schema.map((field: any) => addIds(field, schemaName));
 
 export default withIds;

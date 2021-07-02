@@ -1,3 +1,12 @@
+export type SchemaName = string;
+
+export type SchemaNames = SchemaName[];
+
+export interface AlertState {
+	type: "warning" | "error";
+	message: string;
+}
+
 export enum FieldType {
 	oid = "oid",
 	str = "str",
