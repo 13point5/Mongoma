@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
 import * as api from "api";
+import { NullFunc } from "types";
 
 import { Button, message } from "antd";
 import { UnControlled as CodeMirror } from "react-codemirror2";

@@ -1,11 +1,18 @@
 const addIds = (field: any, parentId: any) => {
 	const fieldId = `${parentId}%${field.name}`;
 
-	const fieldWithId = {
-		id: fieldId,
+	let fieldWithId: any = {
+		key: fieldId,
 		name: field.name,
 		type: field.type,
 	};
+
+	if (field.ref) {
+		fieldWithId = {
+			...fieldWithId,
+			ref: field.ref,
+		};
+	}
 
 	if (!field.children) {
 		return fieldWithId;

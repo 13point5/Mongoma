@@ -26,10 +26,19 @@ export interface Field {
 export type CollectionSchema = Field[];
 
 export interface CollectionProps {
-	schema: Field[];
-	name: string;
+	data: {
+		schema: Field[];
+		name: string;
+	};
 }
 
 export interface CollectionTitleProps {
 	name: string;
 }
+
+export interface FieldRef {
+	id: string;
+	ref: string;
+}
+
+export type NullFunc = () => void;

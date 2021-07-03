@@ -1,5 +1,5 @@
 import * as R from "ramda";
-import localforage from "localforage";
+import localforage from "lib/localforage";
 
 import { SchemaNames, SchemaName } from "types";
 import { getSchemaCodeName, getSchemaDraftName } from "utils";
@@ -15,7 +15,7 @@ export const getSchemaNames = () =>
 export const getSchemaCode = (schemaName: SchemaName): Promise<string | null> =>
 	localforage.getItem(getSchemaCodeName(schemaName));
 
-export const updateSchemaCode = (schemaName: SchemaName, code = "") => {
+export const updateSchemaCode = (schemaName: SchemaName, code = "[]") => {
 	try {
 		validateSchema(code);
 	} catch (error) {
@@ -34,7 +34,7 @@ export const getSchemaDraft = (
 ): Promise<string | null> =>
 	localforage.getItem(getSchemaDraftName(schemaName));
 
-export const updateSchemaDraft = (schemaName: SchemaName, code = "") =>
+export const updateSchemaDraft = (schemaName: SchemaName, code = "[]") =>
 	localforage.setItem(getSchemaDraftName(schemaName), code);
 
 export const removeSchemaDraft = (schemaName: SchemaName) =>

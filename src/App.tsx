@@ -1,12 +1,15 @@
-import localforage from "localforage";
-import Workbench from "components/Workbench";
+import "lib/localforage";
 
-localforage.config({
-	name: "Deebyma",
-});
+import Workbench from "components/Workbench";
+import TheView from "components/TheView";
 
 const App = () => {
-	return <Workbench />;
+	return (
+		<div style={{ display: "flex", width: "100vw", height: "100vh" }}>
+			<Workbench />
+			<TheView />
+		</div>
+	);
 };
 
 export default App;

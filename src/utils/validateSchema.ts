@@ -10,13 +10,29 @@ const schema = {
 		field: {
 			properties: {
 				name: { type: "string" },
-				type: { enum: ["str", "num", "bool", "arr", "obj"] },
+				type: {
+					enum: [
+						"oid",
+						"str",
+						"num",
+						"date",
+						"bool",
+						"arr",
+						"obj",
+						"mixed",
+						"map",
+						"decimal128",
+					],
+				},
 			},
 			optionalProperties: {
 				children: {
 					elements: {
 						ref: "field",
 					},
+				},
+				ref: {
+					type: "string",
 				},
 			},
 		},
