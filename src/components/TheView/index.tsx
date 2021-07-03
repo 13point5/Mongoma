@@ -29,7 +29,6 @@ const edgeTypes = {
 
 const onLoad = ({ fitView }: OnLoadParams) => {
 	fitView();
-	// fitView({ padding: 0.4, includeHiddenNodes: true });
 };
 
 const TheView = () => {
