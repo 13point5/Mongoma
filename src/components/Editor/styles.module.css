@@ -1,0 +1,14 @@
+.root {
+	width: 400px;
+	height: 100vh;
+	overflow: hidden;
+}
+
+.editor {
+	height: 95%;
+}
+
+.saveButton {
+	height: 5%;
+	width: 100%;
+}

@@ -6,7 +6,7 @@ import * as api from "api";
 import { Menu, Typography, Space, Divider, Button } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
-import Monaco from "components/Monaco";
+import Editor from "components/Editor";
 import AddSchema from "./AddSchema";
 
 import classes from "./styles.module.css";
@@ -78,7 +78,7 @@ const Workbench = () => {
 				</Menu>
 			</div>
 
-			<Monaco />
+			{currentSchemaName && <Editor name={currentSchemaName} />}
 		</div>
 	);
 };
