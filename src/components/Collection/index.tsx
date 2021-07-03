@@ -33,7 +33,6 @@ const Collection = ({ data, ...restProps }: CollectionProps) => {
 
 	return (
 		<>
-			<Handle type="target" position={Position.Left} />
 			<Table
 				title={() => <Title name={name} />}
 				columns={columns}
@@ -43,7 +42,10 @@ const Collection = ({ data, ...restProps }: CollectionProps) => {
 				pagination={false}
 				{...restProps}
 			/>
-			<Handle type="source" position={Position.Right} />
+			<Handle id="ns" type="source" position={Position.Bottom} />
+			<Handle id="nt" type="target" position={Position.Right} />
+			<Handle id="ds" type="source" position={Position.Top} />
+			<Handle id="dt" type="target" position={Position.Left} />
 		</>
 	);
 };

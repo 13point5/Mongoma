@@ -11,6 +11,7 @@ import withIds from "utils/withIds";
 import getRefs from "utils/getRefs";
 
 import Collection from "components/Collection";
+import SelfEdge from "./SelfEdge";
 
 const graphStyles = {
 	width: "100%",
@@ -18,6 +19,10 @@ const graphStyles = {
 
 const nodeTypes = {
 	collection: Collection,
+};
+
+const edgeTypes = {
+	self: SelfEdge,
 };
 
 const onLoad = ({ fitView }: OnLoadParams) => {
@@ -43,11 +48,18 @@ const TheView = () => {
 		const nodes = schemaCodesWithIds.map((code, idx) => {
 			const refs = getRefs(code);
 			refs.forEach((ref) => {
+				const selfRef = ref.ref === schemaNames[idx];
+
+				const edgeIds = selfRef
+					? { sourceHandle: "ds", targetHandle: "dt" }
+					: { sourceHandle: "ns", targetHandle: "nt" };
+
 				edges.push({
 					id: `${ref.id}-${ref.ref}`,
 					source: schemaNames[idx],
 					target: ref.ref,
-					type: "smoothstep",
+					type: selfRef ? "self" : "smoothstep",
+					...edgeIds,
 				});
 			});
 
@@ -89,6 +101,7 @@ const TheView = () => {
 			style={graphStyles}
 			onLoad={onLoad}
 			nodeTypes={nodeTypes}
+			edgeTypes={edgeTypes}
 			nodesDraggable
 			paneMoveable
 			panOnScroll>
