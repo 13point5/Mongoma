@@ -40,6 +40,9 @@ const Collection = ({ data, ...restProps }: CollectionProps) => {
 				bordered
 				size="small"
 				pagination={false}
+				expandable={{
+					defaultExpandAllRows: true,
+				}}
 				{...restProps}
 			/>
 			<Handle id="ns" type="source" position={Position.Bottom} />

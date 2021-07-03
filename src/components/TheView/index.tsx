@@ -2,6 +2,7 @@ import ReactFlow, {
 	Controls,
 	Background,
 	OnLoadParams,
+	useZoomPanHelper,
 } from "react-flow-renderer";
 import { useEffect, useState } from "react";
 
@@ -9,6 +10,7 @@ import * as api from "api";
 import localforage from "lib/localforage";
 import withIds from "utils/withIds";
 import getRefs from "utils/getRefs";
+import { getLayoutedElements } from "utils/autoLayout";
 
 import Collection from "components/Collection";
 import SelfEdge from "./SelfEdge";
@@ -27,10 +29,14 @@ const edgeTypes = {
 
 const onLoad = ({ fitView }: OnLoadParams) => {
 	fitView();
+	// fitView({ padding: 0.4, includeHiddenNodes: true });
 };
 
 const TheView = () => {
 	const [elements, setElements] = useState<any>([]);
+	const { fitView } = useZoomPanHelper();
+
+	console.log("the view");
 
 	const getSchemas = async () => {
 		const schemaNames = (await api.getSchemaNames()) || [];
@@ -73,7 +79,7 @@ const TheView = () => {
 			};
 		});
 
-		setElements([...nodes, ...edges]);
+		setElements(getLayoutedElements([...nodes, ...edges]));
 	};
 
 	useEffect(() => {
@@ -82,7 +88,8 @@ const TheView = () => {
 		localforage.ready().then(() => {
 			const globalObservable = localforage.newObservable();
 			subscription = globalObservable.subscribe({
-				next: () => {
+				next: (args) => {
+					if (args.key.startsWith("deebySchemaDraft") || !args.success) return;
 					getSchemas();
 				},
 			});
@@ -97,6 +104,10 @@ const TheView = () => {
 		getSchemas();
 	}, []);
 
+	useEffect(() => {
+		fitView({ padding: 0.4, includeHiddenNodes: true });
+	}, [elements]);
+
 	return (
 		<ReactFlow
 			elements={elements}
@@ -107,7 +118,7 @@ const TheView = () => {
 			nodesDraggable
 			paneMoveable
 			panOnScroll>
-			<Controls showInteractive={false} />
+			<Controls />
 			<Background color="#aaa" gap={16} />
 		</ReactFlow>
 	);

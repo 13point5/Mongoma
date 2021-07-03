@@ -20,3 +20,7 @@ code {
 .CodeMirror {
 	height: 100% !important;
 }
+
+.ant-table-title {
+	padding: 0 !important;
+}
