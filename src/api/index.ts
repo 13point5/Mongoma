@@ -3,6 +3,9 @@ import localforage from "localforage";
 
 import { SchemaNames, SchemaName } from "types";
 import { getSchemaCodeName, getSchemaDraftName } from "utils";
+import validateSchema from "utils/validateSchema";
+
+import { message } from "antd";
 
 export const getSchemaNames = () =>
 	localforage.getItem<SchemaNames | null>("schemas");
@@ -12,8 +15,14 @@ export const getSchemaNames = () =>
 export const getSchemaCode = (schemaName: SchemaName): Promise<string | null> =>
 	localforage.getItem(getSchemaCodeName(schemaName));
 
-export const updateSchemaCode = (schemaName: SchemaName, code = "") =>
-	localforage.setItem(getSchemaCodeName(schemaName), code);
+export const updateSchemaCode = (schemaName: SchemaName, code = "") => {
+	try {
+		validateSchema(code);
+	} catch (error) {
+		message.error(error.message || "Invalid syntax");
+	}
+	return localforage.setItem(getSchemaCodeName(schemaName), code);
+};
 
 export const removeSchemaCode = (schemaName: SchemaName) =>
 	localforage.removeItem(getSchemaCodeName(schemaName));
