@@ -38,24 +38,25 @@ const TheView = () => {
 			withIds(JSON.parse(code || ""), schemaNames[idx])
 		);
 
-		const nodes = schemaCodesWithIds.map((data, idx) => ({
-			id: schemaNames[idx],
-			data: { schema: data, name: schemaNames[idx] },
-			type: "collection",
-			position: { x: 0, y: 0 },
-		}));
-
 		const edges: any = [];
 
-		schemaCodesWithIds.forEach((code, idx) => {
+		const nodes = schemaCodesWithIds.map((code, idx) => {
 			const refs = getRefs(code);
 			refs.forEach((ref) => {
 				edges.push({
 					id: `${ref.id}-${ref.ref}`,
 					source: schemaNames[idx],
 					target: ref.ref,
+					type: "smoothstep",
 				});
 			});
+
+			return {
+				id: schemaNames[idx],
+				data: { schema: code, name: schemaNames[idx] },
+				type: "collection",
+				position: { x: 0, y: 0 },
+			};
 		});
 
 		setElements([...nodes, ...edges]);
