@@ -55,6 +55,12 @@ const Editor = ({ name }: Props) => {
 		}
 	};
 
+	const loadLastSavedCode = () => {
+		api.getSchemaCode(name).then((lastSavedCode) => {
+			setDefaultValue(lastSavedCode || "");
+		});
+	};
+
 	return (
 		<div className={classes.root}>
 			<CodeMirror
@@ -74,9 +80,10 @@ const Editor = ({ name }: Props) => {
 					lint: true,
 				}}
 			/>
-			<Button onClick={handleSave} className={classes.saveButton}>
-				Save
-			</Button>
+			<div className={classes.actions}>
+				<Button onClick={handleSave}>Save</Button>
+				<Button onClick={loadLastSavedCode}>Last saved code</Button>
+			</div>
 		</div>
 	);
 };
