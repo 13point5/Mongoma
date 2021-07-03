@@ -56,6 +56,7 @@ const AddSchema = ({ schemas, setSchemas }: Props) => {
 			} else {
 				api.addSchema(newSchema, schemas).then((value) => {
 					setSchemas(value || []);
+					stopAddingNewSchema();
 				});
 			}
 		} else if (e.key === "Escape" || e.key === "Esc") {

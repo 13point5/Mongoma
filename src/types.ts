@@ -7,19 +7,10 @@ export interface AlertState {
 	message: string;
 }
 
-export enum FieldType {
-	oid = "oid",
-	str = "str",
-	num = "num",
-	arr = "arr",
-	bool = "bool",
-	dateTime = "dateTime",
-}
-
 export interface Field {
 	key: number | string;
 	name: string;
-	type: FieldType;
+	type: string;
 	children?: Field[];
 }
 

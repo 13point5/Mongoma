@@ -48,16 +48,18 @@ const TheView = () => {
 		const nodes = schemaCodesWithIds.map((code, idx) => {
 			const refs = getRefs(code);
 			refs.forEach((ref) => {
-				const selfRef = ref.ref === schemaNames[idx];
+				const refSchema = ref.ref.split(".")[0];
+
+				const selfRef = refSchema === schemaNames[idx];
 
 				const edgeIds = selfRef
 					? { sourceHandle: "ds", targetHandle: "dt" }
 					: { sourceHandle: "ns", targetHandle: "nt" };
 
 				edges.push({
-					id: `${ref.id}-${ref.ref}`,
+					id: `${ref.id}-${refSchema}`,
 					source: schemaNames[idx],
-					target: ref.ref,
+					target: refSchema,
 					type: selfRef ? "self" : "smoothstep",
 					...edgeIds,
 				});
