@@ -10,23 +10,7 @@ const schema = {
 		field: {
 			properties: {
 				name: { type: "string" },
-				type: {
-					type: "string",
-					// TODO: need to validate primitives and Schema names. eg: [str] and [SomeSchemaName]
-
-					// enum: [
-					// 	"oid",
-					// 	"str",
-					// 	"num",
-					// 	"date",
-					// 	"bool",
-					// 	"arr",
-					// 	"obj",
-					// 	"mixed",
-					// 	"map",
-					// 	"decimal128",
-					// ],
-				},
+				type: { type: "string" },
 			},
 			optionalProperties: {
 				children: {

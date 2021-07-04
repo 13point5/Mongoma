@@ -1,3 +1,5 @@
+import bsonTypes from "constants/bsonTypes";
+
 const addIds = (field: any, parentId: any) => {
 	const fieldId = `${parentId}%${field.name}`;
 
@@ -11,6 +13,12 @@ const addIds = (field: any, parentId: any) => {
 		fieldWithId = {
 			...fieldWithId,
 			ref: field.ref,
+		};
+	} else if (!bsonTypes.includes(field.type)) {
+		fieldWithId = {
+			...fieldWithId,
+			type: "Sub-Doc",
+			ref: field.type,
 		};
 	}
 
