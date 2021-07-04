@@ -11,6 +11,7 @@ import localforage from "lib/localforage";
 import withIds from "utils/withIds";
 import getRefs from "utils/getRefs";
 import { getLayoutedElements } from "utils/autoLayout";
+import parseYamlSchema from "utils/parseYamlSchema";
 
 import Collection from "components/Collection";
 import SelfEdge from "./SelfEdge";
@@ -45,7 +46,7 @@ const TheView = () => {
 		);
 
 		const schemaCodesWithIds = schemaCodes.map((code, idx) =>
-			withIds(JSON.parse(code || ""), schemaNames[idx])
+			withIds(parseYamlSchema(code || ""), schemaNames[idx])
 		);
 
 		const edges: any = [];

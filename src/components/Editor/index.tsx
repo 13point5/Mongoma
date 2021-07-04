@@ -1,17 +1,18 @@
 import { useEffect, useState, useRef } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import yaml from "js-yaml";
 
 import * as api from "api";
 
 import { Button, message } from "antd";
 import { UnControlled as CodeMirror } from "react-codemirror2";
-import jsonlint from "jsonlint-mod";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/dracula.css";
 import "codemirror/addon/lint/lint.css";
-import "codemirror/mode/javascript/javascript";
+import "codemirror/mode/yaml/yaml";
+import "codemirror/mode/yaml-frontmatter/yaml-frontmatter";
 import "codemirror/addon/lint/lint";
-import "codemirror/addon/lint/json-lint";
+import "codemirror/addon/lint/yaml-lint";
 
 import classes from "./styles.module.css";
 
@@ -20,7 +21,7 @@ interface Props {
 }
 
 declare const window: any;
-window.jsonlint = jsonlint;
+window.jsyaml = yaml;
 
 const Editor = ({ name }: Props) => {
 	const editorRef: any = useRef(null);
@@ -69,11 +70,9 @@ const Editor = ({ name }: Props) => {
 				onChange={handleChange}
 				className={classes.editor}
 				options={{
+					autoCloseBrackets: true,
 					theme: "dracula",
-					mode: {
-						name: "javascript",
-						json: true,
-					},
+					mode: "yaml",
 					lineNumbers: true,
 					tabSize: 2,
 					gutters: ["CodeMirror-lint-markers"],

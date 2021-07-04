@@ -11,18 +11,21 @@ const schema = {
 			properties: {
 				name: { type: "string" },
 				type: {
-					enum: [
-						"oid",
-						"str",
-						"num",
-						"date",
-						"bool",
-						"arr",
-						"obj",
-						"mixed",
-						"map",
-						"decimal128",
-					],
+					type: "string",
+					// TODO: need to validate primitives and Schema names. eg: [str] and [SomeSchemaName]
+
+					// enum: [
+					// 	"oid",
+					// 	"str",
+					// 	"num",
+					// 	"date",
+					// 	"bool",
+					// 	"arr",
+					// 	"obj",
+					// 	"mixed",
+					// 	"map",
+					// 	"decimal128",
+					// ],
 				},
 			},
 			optionalProperties: {
@@ -39,16 +42,6 @@ const schema = {
 	},
 };
 
-const parse = ajv.compileParser(schema);
+const validate = ajv.compile(schema);
 
-function parseAndLog(json: string) {
-	const data = parse(json);
-	if (data === undefined) {
-		// console.log(parse.position); // error position in string
-		throw new Error(parse.message);
-	} else {
-		return data;
-	}
-}
-
-export default parseAndLog;
+export default validate;

@@ -4,6 +4,7 @@ import localforage from "lib/localforage";
 import { SchemaNames, SchemaName } from "types";
 import { getSchemaCodeName, getSchemaDraftName } from "utils";
 import validateSchema from "utils/validateSchema";
+import parseYaml from "utils/parseYamlSchema";
 
 import { message } from "antd";
 
@@ -15,13 +16,18 @@ export const getSchemaNames = () =>
 export const getSchemaCode = (schemaName: SchemaName): Promise<string | null> =>
 	localforage.getItem(getSchemaCodeName(schemaName));
 
-export const updateSchemaCode = (schemaName: SchemaName, code = "[]") => {
+export const updateSchemaCode = (schemaName: SchemaName, code = "--- #") => {
 	try {
-		validateSchema(code);
+		const parsedSchema = parseYaml(code);
+		if (!validateSchema(parsedSchema)) {
+			console.error("SchemaValidationError", validateSchema.errors);
+			throw new Error("Invalid schema! Check console for error details");
+		}
+		return localforage.setItem(getSchemaCodeName(schemaName), code);
 	} catch (error) {
 		message.error(error.message || "Invalid syntax");
+		return null;
 	}
-	return localforage.setItem(getSchemaCodeName(schemaName), code);
 };
 
 export const removeSchemaCode = (schemaName: SchemaName) =>
@@ -34,7 +40,7 @@ export const getSchemaDraft = (
 ): Promise<string | null> =>
 	localforage.getItem(getSchemaDraftName(schemaName));
 
-export const updateSchemaDraft = (schemaName: SchemaName, code = "[]") =>
+export const updateSchemaDraft = (schemaName: SchemaName, code = "--- #") =>
 	localforage.setItem(getSchemaDraftName(schemaName), code);
 
 export const removeSchemaDraft = (schemaName: SchemaName) =>

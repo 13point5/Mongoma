@@ -15,6 +15,7 @@
     "antd": "^4.16.5",
     "codemirror": "^5.62.0",
     "dagre": "^0.8.5",
+    "js-yaml": "^4.1.0",
     "jsonlint-mod": "^1.7.6",
     "localforage": "^1.9.0",
     "localforage-observable": "^2.1.1",
@@ -49,6 +50,7 @@
   },
   "devDependencies": {
     "@types/dagre": "^0.7.44",
+    "@types/js-yaml": "^4.0.1",
     "@types/ramda": "^0.27.42",
     "@types/react-d3-graph": "^2.6.0",
     "@typescript-eslint/eslint-plugin": "^4.28.0",

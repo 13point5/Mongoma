@@ -18,8 +18,6 @@ export const getLayoutedElements = (elements: any, direction = "LR") => {
 			const nodeHeight = el.__rf?.height || NHEIGHT;
 
 			dagreGraph.setNode(el.id, {
-				// width: el.__rf?.width,
-				// height: el.__rf?.height,
 				width: nodeWidth,
 				height: nodeHeight,
 			});
@@ -39,11 +37,6 @@ export const getLayoutedElements = (elements: any, direction = "LR") => {
 			// unfortunately we need this little hack to pass a slightly different position
 			// to notify react flow about the change. Moreover we are shifting the dagre node position
 			// (anchor=center center) to the top left so it matches the react flow node anchor point (top left).
-
-			// el.position = {
-			// 	x: nodeWithPosition.x - el.__rf?.width / 2 + Math.random() / 1000,
-			// 	y: nodeWithPosition.y - el.__rf?.height / 2,
-			// };
 
 			const nodeWidth = el.__rf?.width || NWIDTH;
 			const nodeHeight = el.__rf?.height || NHEIGHT;
