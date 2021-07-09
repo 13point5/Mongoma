@@ -4,10 +4,10 @@ const getRefs = (schema: any): FieldRef[] => {
 	let refs: FieldRef[] = [];
 
 	schema.forEach((field: any) => {
-		const { ref, children, key } = field;
+		const { ref, children, key, subDocRef } = field;
 
-		if (ref) {
-			refs.push({ id: key, ref });
+		if (ref || subDocRef) {
+			refs.push({ id: key, ref: ref || subDocRef });
 		}
 
 		if (children) {

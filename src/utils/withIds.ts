@@ -18,7 +18,7 @@ const addIds = (field: any, parentId: any) => {
 		fieldWithId = {
 			...fieldWithId,
 			type: "Sub-Doc",
-			ref: field.type,
+			subDocRef: field.type,
 		};
 	}
 
