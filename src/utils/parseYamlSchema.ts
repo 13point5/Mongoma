@@ -28,6 +28,14 @@ const walk = (schema: any) => {
 								},
 							],
 						});
+					} else if (fieldValue.type) {
+						fields.push({
+							name: field,
+							type: "arr",
+							children: [
+								{ name: "", type: fieldValue.type, ref: fieldValue.ref },
+							],
+						});
 					} else {
 						const children = walk(fieldValue);
 						fields.push({
