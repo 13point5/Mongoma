@@ -33,3 +33,7 @@ export interface FieldRef {
 }
 
 export type NullFunc = () => void;
+
+export interface LocalforageSubscription {
+	unsubscribe(): void;
+}
