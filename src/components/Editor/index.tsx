@@ -5,7 +5,7 @@ import yaml from "js-yaml";
 import * as api from "api";
 
 import { Button, message } from "antd";
-import { UnControlled as CodeMirror } from "react-codemirror2";
+import { Controlled as CodeMirror } from "react-codemirror2";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/dracula.css";
 import "codemirror/addon/lint/lint.css";
@@ -28,7 +28,9 @@ const Editor = ({ name }: Props) => {
 	const [defaultValue, setDefaultValue] = useState("");
 
 	useEffect(() => {
-		api.getSchemaDraft(name).then((draft) => setDefaultValue(draft || ""));
+		api.getSchemaDraft(name).then((draft) => {
+			setDefaultValue(draft || "");
+		});
 	}, [name]);
 
 	const saveDraft = useDebouncedCallback((code) => {
@@ -40,6 +42,7 @@ const Editor = ({ name }: Props) => {
 	};
 
 	const handleChange = (editor: any, _: any, newValue: string) => {
+		setDefaultValue(newValue);
 		editorRef.current = editor;
 		saveDraft(newValue);
 	};
@@ -67,7 +70,7 @@ const Editor = ({ name }: Props) => {
 			<CodeMirror
 				value={defaultValue}
 				editorDidMount={handleDidMount}
-				onChange={handleChange}
+				onBeforeChange={handleChange}
 				className={classes.editor}
 				options={{
 					autoCloseBrackets: true,

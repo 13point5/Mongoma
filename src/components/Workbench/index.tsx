@@ -22,6 +22,8 @@ const Workbench = () => {
 
 		if (newSchemas && newSchemas.length > 0) {
 			setCurrentSchemaName(newSchemas[0]);
+		} else {
+			setCurrentSchemaName(null);
 		}
 	};
 
